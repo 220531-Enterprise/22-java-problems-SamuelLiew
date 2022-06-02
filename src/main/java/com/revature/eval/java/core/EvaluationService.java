@@ -590,8 +590,20 @@ public class EvaluationService {
 	 * insensitive. Input will not contain non-ASCII symbols.
 	 */
 	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+		HashMap<Character, Integer> map = new HashMap<>();
+		int matched = 0;
+		for (char letter: alphabet) map.put(letter, 1);
+		for (char letter: string.toLowerCase().toCharArray()) {
+			if (map.containsKey(letter)){
+				map.replace(letter, map.get(letter) - 1);
+				if (map.get(letter) >= 0) {
+					matched++;
+				}
+
+			}
+		}
+		return matched == 26;
 	}
 
 	/**
@@ -606,7 +618,22 @@ public class EvaluationService {
 	 * The sum of these multiples is 78.
 	 */
 	public int getSumOfMultiples(int i, int[] set) {
-		return 0;
+		HashMap<Integer, Boolean> dictionary = new HashMap<>();
+		int total = 0;
+
+		for (int number : set) {
+			int counter = 1;
+			while (number * counter < i) {
+				if (!dictionary.containsKey(number * counter)){
+					dictionary.put(number * counter, true);
+				}
+				counter++;
+			}
+		}
+		for (int num : dictionary.keySet()) {
+			total += num;
+		}
+		return total;
 	}
 	
 	/**

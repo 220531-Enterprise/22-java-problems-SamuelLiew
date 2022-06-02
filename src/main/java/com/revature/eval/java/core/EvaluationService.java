@@ -1,5 +1,7 @@
 package com.revature.eval.java.core;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -291,8 +293,12 @@ public class EvaluationService {
 	 * long name like Portable Network Graphics to its acronym (PNG).
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String acronym = "";
+		String newPhrase = phrase.replaceAll(" ", "-");
+		for (String word : newPhrase.split("-")){
+			acronym += word.toUpperCase().toCharArray()[0];
+		}
+		return acronym;
 	}
 
 	/**
@@ -347,18 +353,15 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			return (getSideOne() == getSideTwo()) && (getSideTwo() == getSideThree());
 		}
 
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			return (getSideOne() == getSideTwo()) || (getSideTwo() == getSideThree()) || (getSideThree() == getSideOne());
 		}
 
 		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			return (getSideOne() != getSideTwo()) && (getSideTwo() != getSideThree()) && (getSideThree() != getSideOne());
 		}
 
 	}

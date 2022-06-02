@@ -1,7 +1,5 @@
 package com.revature.eval.java.core;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -381,8 +379,45 @@ public class EvaluationService {
 	 * 3 + 2*1 + 2*3 + 2 + 1 = 3 + 2 + 6 + 3 = 5 + 9 = 14
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		String onePoint = "AEIOULNRST";
+		String twoPoints = "DG";
+		String threePoints ="BCMP";
+		String fourPoints = "FHVWY";
+		String fivePoints = "K";
+		String eightPoints = "JX";
+		String tenPoints = "QZ";
+		char[][] arrayArray = {onePoint.toCharArray(), twoPoints.toCharArray(), threePoints.toCharArray(),
+				fourPoints.toCharArray(), fivePoints.toCharArray(),eightPoints.toCharArray(),tenPoints.toCharArray()};
+		HashMap<Character, Integer> letterValues = new HashMap();
+		for (char letter : arrayArray[0]){
+			letterValues.put(letter, 1);
+		}
+		for (char letter : arrayArray[1]){
+			letterValues.put(letter, 2);
+		}
+		for (char letter : arrayArray[2]){
+			letterValues.put(letter, 3);
+		}
+		for (char letter : arrayArray[3]){
+			letterValues.put(letter, 4);
+		}
+		for (char letter : arrayArray[4]){
+			letterValues.put(letter, 5);
+		}
+		for (char letter : arrayArray[5]){
+			letterValues.put(letter, 8);
+		}
+		for (char letter : arrayArray[6]){
+			letterValues.put(letter, 10);
+		}
+
+		char[] stringCharacters = string.toUpperCase().toCharArray();
+		int total = 0;
+		for (int i = 0; i < stringCharacters.length; i++){
+			total += letterValues.get(stringCharacters[i]);
+		}
+
+		return total;
 	}
 
 	/**
@@ -419,7 +454,21 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		return null;
+		string = string.replaceAll("[.()-]", "");
+		string = string.replaceAll(" ", "");
+		char[] charString = string.toCharArray();
+		try {
+			Integer.parseInt(string);
+			if (charString.length == 11 && charString[0] == 1) {
+				return string.replace("1", "");
+			} else if (charString.length == 10) {
+				return string;
+			} else {
+				throw new IllegalArgumentException();
+			}
+		} catch (Exception e) {
+			throw new IllegalArgumentException();
+		}
 	}
 
 	/**

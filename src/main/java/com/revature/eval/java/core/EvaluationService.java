@@ -99,7 +99,10 @@ public class EvaluationService {
 	 * If the hourOfDay parameter is less than 0 or greater than 23, return false.
 	 */
 	public boolean shouldWakeUp(boolean isBarking, int hourOfDay) {
-		// TODO Write an implementation for this method declaration
+		if (isBarking) {
+			if (hourOfDay < 0 || hourOfDay > 23) return false;
+			if (hourOfDay < 8 || hourOfDay > 22) return true;
+		}
 		return false;
 	}
 
@@ -115,8 +118,9 @@ public class EvaluationService {
 	 * Otherwise, return false;
 	 */
 	public boolean areEqualByThreeDecimalPlaces(double firstNum, double secondNum) {
-		// TODO Write an implementation for this method declaration
+		if ((int)(firstNum * 1000) == (int)(secondNum * 1000)) return true;
 		return false;
+
 	}
 
 	/**
@@ -132,7 +136,7 @@ public class EvaluationService {
 	static class TeenNumberChecker {
 
 		public static boolean hasTeen(int x, int y, int z) {
-			// TODO Write an implementation for this method declaration
+
 			return false;
 		}
 

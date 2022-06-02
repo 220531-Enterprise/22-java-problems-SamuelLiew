@@ -258,8 +258,14 @@ public class EvaluationService {
 	 * invalid value.
 	 */
 	public int sumFirstAndLastDigit(int num) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		int total = 0;
+		if (num < 0) return -1;
+		char[] chars = (num + "").toCharArray();
+		for (int i = 0; i < chars.length; i++){
+			if (i == 0 || i == chars.length - 1) total += Integer.parseInt(String.valueOf(chars[i]));
+		}
+
+		return total;
 	}
 
 	/**
@@ -269,8 +275,12 @@ public class EvaluationService {
 	 * reverses a String. Example: reverse("example"); -> "elpmaxe"
 	 */
 	public String reverse(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		char[] characters = string.toCharArray();
+		String str = "";
+		for (int i = characters.length - 1; i >= 0; i--){
+			str+= characters[i];
+		}
+		return str;
 	}
 
 	/**

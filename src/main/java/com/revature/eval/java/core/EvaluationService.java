@@ -1,5 +1,7 @@
 package com.revature.eval.java.core;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -102,7 +104,7 @@ public class EvaluationService {
 	public boolean shouldWakeUp(boolean isBarking, int hourOfDay) {
 		if (isBarking) {
 			if (hourOfDay < 0 || hourOfDay > 23) return false;
-			if (hourOfDay < 8 || hourOfDay > 22) return true;
+			return hourOfDay < 8 || hourOfDay > 22;
 		}
 		return false;
 	}
@@ -119,8 +121,7 @@ public class EvaluationService {
 	 * Otherwise, return false;
 	 */
 	public boolean areEqualByThreeDecimalPlaces(double firstNum, double secondNum) {
-		if ((int)(firstNum * 1000) == (int)(secondNum * 1000)) return true;
-		return false;
+		return (int) (firstNum * 1000) == (int) (secondNum * 1000);
 
 	}
 
@@ -137,16 +138,14 @@ public class EvaluationService {
 	static class TeenNumberChecker {
 
 		public static boolean hasTeen(int x, int y, int z) {
-			if (isTeen(x) || isTeen(y) || isTeen(z)) return true;
-			return false;
+			return isTeen(x) || isTeen(y) || isTeen(z);
 		}
 
 		// We can initialize isTeen method first
 		// Then pass the parameter to hasTeen method
 
 		public static boolean isTeen(int number) {
-			if (number >= 13 && number <= 19) return true;
-			return false;
+			return number >= 13 && number <= 19;
 		}
 	}
 
@@ -230,7 +229,7 @@ public class EvaluationService {
 		int max = 0;
 		int lesserNumber = Math.min(first, second);
 		int moreNumber = lesserNumber == first ? second : first;
-		HashMap<Integer, Boolean> firstCommonDivisor = new HashMap<Integer, Boolean>();
+		HashMap<Integer, Boolean> firstCommonDivisor = new HashMap<>();
 		for (int i = 1; i < lesserNumber; i++){
 			if (first % i == 0) {
 				firstCommonDivisor.put(i, true);
@@ -276,11 +275,11 @@ public class EvaluationService {
 	 */
 	public String reverse(String string) {
 		char[] characters = string.toCharArray();
-		String str = "";
+		StringBuilder str = new StringBuilder();
 		for (int i = characters.length - 1; i >= 0; i--){
-			str+= characters[i];
+			str.append(characters[i]);
 		}
-		return str;
+		return str.toString();
 	}
 
 	/**
@@ -291,12 +290,12 @@ public class EvaluationService {
 	 * long name like Portable Network Graphics to its acronym (PNG).
 	 */
 	public String acronym(String phrase) {
-		String acronym = "";
+		StringBuilder acronym = new StringBuilder();
 		String newPhrase = phrase.replaceAll(" ", "-");
 		for (String word : newPhrase.split("-")){
-			acronym += word.toUpperCase().toCharArray()[0];
+			acronym.append(word.toUpperCase().toCharArray()[0]);
 		}
-		return acronym;
+		return acronym.toString();
 	}
 
 	/**
@@ -388,7 +387,7 @@ public class EvaluationService {
 		String tenPoints = "QZ";
 		char[][] arrayArray = {onePoint.toCharArray(), twoPoints.toCharArray(), threePoints.toCharArray(),
 				fourPoints.toCharArray(), fivePoints.toCharArray(),eightPoints.toCharArray(),tenPoints.toCharArray()};
-		HashMap<Character, Integer> letterValues = new HashMap();
+		HashMap<Character, Integer> letterValues = new HashMap<>();
 		for (char letter : arrayArray[0]){
 			letterValues.put(letter, 1);
 		}
@@ -413,8 +412,8 @@ public class EvaluationService {
 
 		char[] stringCharacters = string.toUpperCase().toCharArray();
 		int total = 0;
-		for (int i = 0; i < stringCharacters.length; i++){
-			total += letterValues.get(stringCharacters[i]);
+		for (char stringCharacter : stringCharacters) {
+			total += letterValues.get(stringCharacter);
 		}
 
 		return total;
@@ -527,8 +526,16 @@ public class EvaluationService {
 	 * Note that 1 is not a prime number.
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		List<Long> primeFactors = new ArrayList<>();
+		long prime = 2;
+		while (l > 1) {
+			while (l % prime == 0){
+				l /= prime;
+				primeFactors.add(prime);
+			}
+			prime++;
+		}
+		return primeFactors;
 	}
 
 	/**
@@ -543,8 +550,31 @@ public class EvaluationService {
 	 * numbers, pretend they don't exist and implement them yourself.
 	 */
 	public int calculateNthPrime(int k) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		if (k == 0) throw new IllegalArgumentException();
+		ArrayList<Integer> primeNumbers = new ArrayList<Integer>(){{
+			add(2);
+			add(3);
+			add(5);
+			add(7);
+			add(11);
+			add(13);
+		}};
+		if (k <= 6) return primeNumbers.get(k - 1);
+		int attempt = 14;
+		while (primeNumbers.size() < k) {
+			boolean valid = true;
+			int number = 2;
+			while (number < attempt) {
+				if (attempt % number == 0) {
+					valid = false;
+					break;
+				}
+				number++;
+			}
+			if (valid) primeNumbers.add(attempt);
+			attempt++;
+		}
+		return primeNumbers.get(primeNumbers.size() - 1);
 	}
 
 	/**

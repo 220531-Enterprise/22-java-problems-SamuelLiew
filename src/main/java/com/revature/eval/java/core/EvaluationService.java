@@ -21,8 +21,10 @@ public class EvaluationService {
 	static class SpeedConverter {
 
 		public static long toMilesPerHour(double kilometersPerHour) {
-			// TODO Write an implementation for this method declaration
-			return 0;
+			if (kilometersPerHour < 0) {
+				return -1;
+			}
+			return Math.round(kilometersPerHour/1.609);
 		}
 
 		/**
@@ -42,7 +44,10 @@ public class EvaluationService {
 		 */
 		public static String printConversion(double kilometersPerHour) {
 			// TODO Write an implementation for this method declaration
-			return null;
+			if (kilometersPerHour < 0) {
+				return "Invalid Value";
+			}
+			return ( kilometersPerHour + " km/h = " + toMilesPerHour(kilometersPerHour) + " mi/h");
 		}
 	}
 
@@ -67,8 +72,11 @@ public class EvaluationService {
 	 * Value".
 	 */
 	public String printMegaBytesAndKiloBytes(int XX) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		if (XX < 0) {
+			System.out.println("Invalid Value");
+			return "Invalid Value";
+		}
+		return (XX + " KB = " + XX/1024 + " MB and " + XX%1024 + " KB");
 	}
 
 	/**

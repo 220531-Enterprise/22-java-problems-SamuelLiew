@@ -480,8 +480,18 @@ public class EvaluationService {
 	 * free: 1
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		HashMap<String, Integer> map = new HashMap<>();
+		string = string.replaceAll("[-()\n]", "");
+		string = string.replaceAll(",", " ");
+		String[] stringArray = string.split(" ");
+		for (String word : stringArray) {
+			if (map.containsKey(word)) {
+				map.put(word, map.get(word) + 1);
+			} else {
+				map.put(word, 1);
+			}
+		}
+		return map;
 	}
 
 	/**
@@ -499,7 +509,13 @@ public class EvaluationService {
 	 * a number is an Armstrong number.
 	 */
 	public boolean isArmstrongNumber(int input) {
-		return false;
+		if (input < 10) return true;
+		char[] charInput = (input + "").toCharArray();
+		int total = 0;
+		for (char num : charInput) {
+			total += Math.pow((Integer.parseInt(String.valueOf(num))), charInput.length);
+		}
+		return total == input;
 	}
 
 	/**

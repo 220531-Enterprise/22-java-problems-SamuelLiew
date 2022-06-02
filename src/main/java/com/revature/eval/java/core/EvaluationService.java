@@ -136,7 +136,7 @@ public class EvaluationService {
 	static class TeenNumberChecker {
 
 		public static boolean hasTeen(int x, int y, int z) {
-
+			if (isTeen(x) || isTeen(y) || isTeen(z)) return true;
 			return false;
 		}
 
@@ -144,7 +144,7 @@ public class EvaluationService {
 		// Then pass the parameter to hasTeen method
 
 		public static boolean isTeen(int number) {
-			// TODO Write an implementation for this method declaration
+			if (number >= 13 && number <= 19) return true;
 			return false;
 		}
 	}
@@ -165,8 +165,8 @@ public class EvaluationService {
 	 * ZZ represents the calculated days.
 	 */
 	public String printYearsAndDays(long minutes) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		if (minutes < 0) return "Invalid Value";
+		return minutes + " min = " + (int)(minutes / 525600) + " y and " + (int)((minutes % 525600)/1440) + " d";
 	}
 
 	/**
